@@ -1,4 +1,7 @@
 # -*- coding: utf8 -*-
+"""
+groups.py - hoitaa pygamen sprite-ryhmät
+"""
 import pygame
 
 # Groupit

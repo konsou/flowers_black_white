@@ -73,7 +73,6 @@ class World(pygame.sprite.Sprite):
                     self.flowers_dict[current_cell.grid_x][current_cell.grid_y] = flower_class(current_cell.grid_x, current_cell.grid_y, world=self, cell=current_cell)
 
     def _get_avg_temp(self):
-        # Tähän laskentaa
         total_temp = 0.0
         for current_cell in groups.cell_group:
             total_temp += current_cell.temp

@@ -1,22 +1,26 @@
 # -*- coding: utf8 -*-
+"""
+text.py - hoitaa tekstin näytön ruudulla
+
+Sisältää:
+class Text - tekstiobjekti
+"""
 import pygame
 
 DEBUG_TEXT = 0
 
+
 class Text(pygame.sprite.Sprite):
+    """ Näyttää tekstin ruudulla """
     def __init__(self, group=None, pos=None, text="", text_color=(255, 255, 255), bgcolor=(0, 0, 0), font_size=24,
                  align='center'):
-        """ Näyttää tekstin ruudulla """
         pygame.sprite.Sprite.__init__(self, group)
-        if DEBUG_TEXT: print "__init__ in class Text"
         self._pos = pos
         self._text = text
         self._text_color = text_color
         self._bgcolor = bgcolor
         self._font_size = font_size
         self._align = align
-
-        # self.win = pygame.display.get_surface()
 
         self._font = pygame.font.SysFont("couriernew", self._font_size, bold=True)
         self.image = None
@@ -63,7 +67,6 @@ class Text(pygame.sprite.Sprite):
         if DEBUG_TEXT: print "Updated rect in Text {}".format(self._text)
         if DEBUG_TEXT: print "New rect: {}".format(self.rect)
         if DEBUG_TEXT: print "pos: {}".format(self._pos)
-
 
     def update(self):
         pass

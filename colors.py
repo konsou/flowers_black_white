@@ -1,5 +1,11 @@
 # -*- coding: utf8 -*-
+"""
+colors.py - hoitaa väreihin liittyviä juttuja
 
+Sisältää:
+väri-constantteja
+funktio number_to_color - muuttaa numeron väriarvoksi
+"""
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
@@ -14,7 +20,7 @@ ORANGE = NEW_BLACK
 
 def number_to_color(number):
     """
-    Ottaa vastaan intin väliltä 0-100
+    Ottaa vastaan numeron väliltä 0-100
     Palauttaa väriarvon tuplena (R,G,B)
     Liukuma: sininen (0) - punainen (100)
     """
