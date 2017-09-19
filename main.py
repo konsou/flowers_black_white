@@ -109,8 +109,8 @@ class Program(object):
         self.world.update()
         self.turn_text.text = "Turn {}".format(self.world.turn_counter)
         self.avg_temp_text.text = "Avg temp: {}".format(round(self.world.avg_temp, 2))
-        self.black_counter_text.text = "Black: {}".format(self.world.black_counter)
-        self.white_counter_text.text = "White: {}".format(self.world.white_counter)
+        self.black_counter_text.text = "Black: {}".format(len(groups.black_flowers_group))
+        self.white_counter_text.text = "White: {}".format(len(groups.white_flowers_group))
         self.last_turn_started_at = pygame.time.get_ticks()
 
     def update_hover_text(self):

@@ -15,8 +15,8 @@ class World(pygame.sprite.Sprite):
         self.program = program
 
         self.turn_counter = 0
-        self.black_counter = 0
-        self.white_counter = 0
+        # self.black_counter = 0
+        # self.white_counter = 0
 
         self.width = Settings.cells_x * Settings.cell_width
         self.height = Settings.cells_y * Settings.cell_height
@@ -41,8 +41,8 @@ class World(pygame.sprite.Sprite):
 
     def update(self):
         self.turn_counter += 1
-        self.white_counter = 0
-        self.black_counter = 0
+        # self.white_counter = 0
+        # self.black_counter = 0
         for current_cell in groups.cell_group:
             current_cell.temp_to_previous()
         groups.cell_group.update()

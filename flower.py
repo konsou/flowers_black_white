@@ -74,12 +74,12 @@ class Flower(pygame.sprite.Sprite):
         if self.life_counter >= self.lifetime:
             self.kill()
 
-        # Statistiikkalaskuri
-        if self in groups.flower_group:
-            if self.color == WHITE:
-                self.world.white_counter += 1
-            elif self.color == BLACK:
-                self.world.black_counter += 1
+        # # Statistiikkalaskuri
+        # if self in groups.flower_group:
+        #     if self.color == WHITE:
+        #         self.world.white_counter += 1
+        #     elif self.color == BLACK:
+        #         self.world.black_counter += 1
 
     def update_color(self):
         """ Päivittää kuvan oikean väriseksi """
@@ -95,6 +95,7 @@ class WhiteFlower(Flower):
         self.albedo = Settings.flower_white_albedo
         self.radiation = Settings.flower_while_radiation
         self.preferred_temp = Settings.flower_white_pref_temp
+        self.add(groups.white_flowers_group)
 
 
 class BlackFlower(Flower):
@@ -106,3 +107,4 @@ class BlackFlower(Flower):
         self.albedo = Settings.flower_black_albedo
         self.radiation = Settings.flower_black_radiation
         self.preferred_temp = Settings.flower_black_pref_temp
+        self.add(groups.black_flowers_group)
