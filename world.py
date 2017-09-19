@@ -33,11 +33,12 @@ class World(pygame.sprite.Sprite):
             self.flowers_dict[x] = {}
             for y in range(Settings.cells_y):
                 self.cells_dict[x][y] = cell.Cell(x, y, world=self)
-                if random.randint(1, 2) == 1:
-                    flower_class = flower.WhiteFlower
-                else:
-                    flower_class = flower.BlackFlower
-                self.flowers_dict[x][y] = flower_class(x, y, world=self, cell=self.cells_dict[x][y])
+                if Settings.spawn_flowers:
+                    if random.randint(1, 2) == 1:
+                        flower_class = flower.WhiteFlower
+                    else:
+                        flower_class = flower.BlackFlower
+                    self.flowers_dict[x][y] = flower_class(x, y, initial_spawn=1, world=self, cell=self.cells_dict[x][y])
 
     def update(self):
         self.turn_counter += 1
@@ -47,7 +48,8 @@ class World(pygame.sprite.Sprite):
             current_cell.temp_to_previous()
         groups.cell_group.update()
         groups.flower_group.update()
-        self.spawn_flowers()
+        if Settings.spawn_flowers:
+            self.spawn_flowers()
 
     def spawn_flowers(self):
         for current_cell in groups.cell_group:

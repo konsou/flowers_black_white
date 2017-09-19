@@ -22,8 +22,7 @@ Ohjelma simuloi planeettaa ja sen ilmastoa sekä sitä, miten heijastuvuuden (al
 planeetan ilmastoon ja eri kukkalajien elinolosuhteisiin.
 
 Alkuasetelma:
-1) Aloituksessa luodaan määritetyn kokoinen ruudukko, joka simuloi planeettaa. Toistaiseksi ruudukko on neliömäinen,
-   eli pallomaisuutta ei tässä oteta huomioon.
+1) Aloituksessa luodaan määritetyn kokoinen ruudukko, joka simuloi planeettaa
 
 2) Ruudukko spawnataan täyteen satunnaisesti mustia ja valkoisia kukkia
 
@@ -35,7 +34,7 @@ Joka vuoro tapahtuu seuraavaa jokaiselle solulle (= ruudukon ruudulle):
    self.temp += sun_power * (1 - self.albedo)
    Albedo on siis solun heijastuvuus. Jos albedo = 1 niin kaikki tuleva säteily heijastuu pois.
 
-3) Solu säteilee pois lämpöenergiaa radiation-muuttujan verran.
+3) Solu säteilee pois lämpöenergiaa radiation-muuttujan verran (prosentteina).
 
 Kohtiin 2 ja 3 tärkeä huomio: jos solussa on kukka niin albedo- ja radiation-arvot otetaan kukasta, ei solusta!
 

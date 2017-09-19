@@ -21,7 +21,7 @@ class Flower(pygame.sprite.Sprite):
         -oman eliniän laskemisen lämpötilan mukaan
         -itsensä tappamisen kun elinikä täysi
     """
-    def __init__(self, grid_x, grid_y, world=None, cell=None):
+    def __init__(self, grid_x, grid_y, initial_spawn=0, world=None, cell=None):
         pygame.sprite.Sprite.__init__(self, groups.flower_group)
 
         # Viittaukset maailmaan ja soluun
@@ -38,8 +38,11 @@ class Flower(pygame.sprite.Sprite):
 
         # Elinikä
         self.lifetime = Settings.flower_lifetime
-        # TODO: tämän ei pitäisi tapahtua näin joka kerta kun kukka spawnaa vaan vain alkuspawnauksessa
-        self.life_counter = random.randint(0, self.lifetime - 1)
+        # Jos alkuspawnaus niin randomoidaan kukan ikä
+        if initial_spawn:
+            self.life_counter = random.randint(0, self.lifetime - 1)
+        else:
+            self.life_counter = 0
 
         # Kuva, rect
         self.image = pygame.Surface((Settings.flower_width, Settings.flower_height))
@@ -88,8 +91,8 @@ class Flower(pygame.sprite.Sprite):
 
 class WhiteFlower(Flower):
     """ Valkoinen kukka. Albedo suurempi, radiation-arvo vähän pienempi kuin mustalla. """
-    def __init__(self, grid_x, grid_y, world=None, cell=None):
-        Flower.__init__(self, grid_x, grid_y, world=world, cell=cell)
+    def __init__(self, grid_x, grid_y, initial_spawn=0, world=None, cell=None):
+        Flower.__init__(self, grid_x, grid_y, initial_spawn=initial_spawn, world=world, cell=cell)
         self.color = WHITE
         self.update_color()
         self.albedo = Settings.flower_white_albedo
@@ -100,8 +103,8 @@ class WhiteFlower(Flower):
 
 class BlackFlower(Flower):
     """ Musta kukka. Albedo matalampi, radiation-arvo vähän suurempi kuin valkoisella. """
-    def __init__(self, grid_x, grid_y, world=None, cell=None):
-        Flower.__init__(self, grid_x, grid_y, world=world, cell=cell)
+    def __init__(self, grid_x, grid_y, initial_spawn=0, world=None, cell=None):
+        Flower.__init__(self, grid_x, grid_y, initial_spawn=initial_spawn, world=world, cell=cell)
         self.color = BLACK
         self.update_color()
         self.albedo = Settings.flower_black_albedo
