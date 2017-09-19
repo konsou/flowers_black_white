@@ -1,4 +1,5 @@
 # -*- coding: utf8 -*-
+import math
 """
 cell.py - hoitaa solun (ruudukon alueen) käsittelyn
 
@@ -38,6 +39,12 @@ class Cell(pygame.sprite.Sprite):
         self.grid_x = grid_x
         self.grid_y = grid_y
 
+        # Pallomaisen maailman vaikutus auringon lämmitykseen
+        if Settings.spherical_world:
+            self.sun_power_multiplier = math.sin(float(self.grid_y) / Settings.cells_y * math.pi)
+        else:
+            self.sun_power_multiplier = 1
+
         # Kuva, rect
         self.image = pygame.Surface((self.width, self.height))
         self.image.fill(number_to_color(self.temp))
@@ -64,10 +71,13 @@ class Cell(pygame.sprite.Sprite):
         self.temp = temp_sum / len(neighbors)
 
         # Auringon säteily - albedo kertoo paljonko heijastuu pois
-        self.temp += Settings.sun_power * (1 - self.albedo)
+        self.temp += Settings.sun_power * self.sun_power_multiplier * (1 - self.albedo)
 
         # Lämmön säteily pois
-        self.temp -= self.radiation
+        # print "-------------"
+        # print "Cell temp before radiation: {}".format(self.temp)
+        self.temp *= (1 - self.radiation)
+        # print "Cell temp after radiation: {}".format(self.temp)
 
         # Värin päivitys lämpötilan mukaiseksi
         self.update_color()
@@ -110,9 +120,9 @@ class Cell(pygame.sprite.Sprite):
         """
         if self.rect.collidepoint(event.pos):
             if event.button == 1:
-                self.temp += 50
+                self.temp += 5000
             elif event.button == 3:
-                self.temp -= 50
+                self.temp -= 5000
             # ret_val = "x: {} y: {} temp: {}".format(self.grid_x, self.grid_y, round(self.temp, 2))
 
     def mouse_enter(self):
