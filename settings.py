@@ -33,11 +33,11 @@ class Settings(object):
     # Valkoinen kukka
     flower_white_albedo = 0.9
     flower_while_radiation = 0.009
-    flower_white_pref_temp = 20
+    flower_white_pref_temp = 40
     # Musta kukka
     flower_black_albedo = 0.1
     flower_black_radiation = 0.011
-    flower_black_pref_temp = 80
+    flower_black_pref_temp = 60
 
     # Auringon voimakkuus
     sun_power = 1.5

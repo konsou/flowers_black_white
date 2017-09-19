@@ -52,6 +52,12 @@ class Program(object):
         self.avg_temp_text = text.Text(group=groups.ui_group, pos=(Settings.window_size[0] - 30, 50), text="(avg tmp)", font_size=40, align='topright')
         self.black_counter_text = text.Text(group=groups.ui_group, pos=(Settings.window_size[0] - 40, Settings.window_size[1] - 50), text="Black", font_size=40, align='bottomright')
         self.white_counter_text = text.Text(group=groups.ui_group, pos=(Settings.window_size[0] - 40, Settings.window_size[1] - 10), text="White", font_size=40, align='bottomright')
+        self.sun_power_text = text.Text(group=groups.ui_group, pos=(20, Settings.window_size[1] - 10), text="Sun power: {}".format(Settings.sun_power), font_size=40, align='bottomleft')
+
+        # Statsit
+        self.stats_avg_temp = {}
+        self.stats_black_flowers = {}
+        self.stats_white_flowers = {}
 
     def update(self):
         """
@@ -79,10 +85,10 @@ class Program(object):
                     self.running = 0
                 # elif event.key == K_SPACE:
                 #     self.advance_turn()
-                # elif event.key == K_PLUS or event.key == K_KP_PLUS:
-                #     Settings.turn_time_seconds -= .1
-                # elif event.key == K_MINUS or event.key == K_KP_MINUS:
-                #     Settings.turn_time_seconds += .1
+                elif event.key == K_PLUS or event.key == K_KP_PLUS:
+                    Settings.sun_power += .1
+                elif event.key == K_MINUS or event.key == K_KP_MINUS:
+                    Settings.sun_power -= .1
             elif event.type == MOUSEMOTION:
                 # heitetään mouse motion cellien käsiteltäväksi että osaavat muuttaa väriään jos hover
                 for current_cell in groups.cell_group:
@@ -107,10 +113,25 @@ class Program(object):
         hoitaa itse simuloinnin. Tämän jälkeen sitten päivittää infotekstit.
         """
         self.world.update()
+
+        # Arvot
+        avg_temp = self.world.avg_temp
+        black_flowers = len(groups.black_flowers_group)
+        white_flowers = len(groups.white_flowers_group)
+
+        # Tallennetaan statistiikkaan
+        self.stats_avg_temp[self.world.turn_counter] = avg_temp
+        self.stats_black_flowers[self.world.turn_counter] = black_flowers
+        self.stats_white_flowers[self.world.turn_counter] = white_flowers
+
+        # Päivitetään infotekstit
         self.turn_text.text = "Turn {}".format(self.world.turn_counter)
-        self.avg_temp_text.text = "Avg temp: {}".format(round(self.world.avg_temp, 2))
-        self.black_counter_text.text = "Black: {}".format(len(groups.black_flowers_group))
-        self.white_counter_text.text = "White: {}".format(len(groups.white_flowers_group))
+        self.avg_temp_text.text = "Avg temp: {}".format(round(avg_temp, 2))
+        self.black_counter_text.text = "Black: {}".format(black_flowers)
+        self.white_counter_text.text = "White: {}".format(white_flowers)
+        self.sun_power_text.text = "Sun power: {}".format(Settings.sun_power)
+
+        # Turn counterin timerin nollaus
         self.last_turn_started_at = pygame.time.get_ticks()
 
     def update_hover_text(self):

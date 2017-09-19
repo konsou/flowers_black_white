@@ -60,6 +60,8 @@ class Text(pygame.sprite.Sprite):
             self.rect.topright = self._pos
         elif self._align == 'bottomright':
             self.rect.bottomright = self._pos
+        elif self._align == 'bottomleft':
+            self.rect.bottomleft = self._pos
 
     def _update_rect(self):
         self.rect = self.image.get_rect()
